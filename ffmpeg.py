@@ -47,7 +47,7 @@ for line in time_stamp[1:]:
 		ds += 60.0
 		dm -= 1
 
-	cmd = '%s %s -i \"%s\" -t %d:%.1f -f mp4 -pix_fmt yuv420p -c:v libx265 -crf 18 -c:a copy %s -hide_banner -y' %('ffmpeg.exe -ss', be[0], inname, dm, ds, preamble[0] + '-' + outname)
+	cmd = '%s %s -i \"%s\" -t %d:%.1f -f mp4 -pix_fmt yuv420p -c:v libx264 -crf 14 -c:a copy %s -hide_banner -y' %('ffmpeg.exe -ss', be[0], inname, dm, ds, preamble[0] + '-' + outname)
 	# -pix_fmt yuv420p for thumbnails
 	print(cmd)
 	os.system(cmd)
