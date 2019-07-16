@@ -12,15 +12,18 @@ for o, a in opts:
 if filename == '':
 	print('input filename using -i \"filename.txt\"')
 	exit()
+preamble = re.findall(r"([a-zA-Z\-0-9]+)\.txt", filename)
 f = open(filename, encoding='utf-8')
 time_stamp = f.readlines()
 inname = time_stamp[0].rstrip()
 print(inname)
 for line in time_stamp[1:]:
+	if line[0] == '#':
+		continue
 	be = re.findall(r"\d*:*\d{1,2}:\d{1,2}\.{0,1}?\d{1,2}", line)
 	na = re.findall(r"[\u4E00-\u9FA5]+[a-zA-Z0-9]*", line)
 	outname = ''.join(na)+'.mp4'
-	print(be)
+	# print(be)
 	bg = re.findall(r"\d+\.*\d*", be[0])
 	ed = re.findall(r"\d+\.*\d*", be[1])
 	[bgm, bgs] = [edm, eds] = [0, 0]
@@ -44,7 +47,7 @@ for line in time_stamp[1:]:
 		ds += 60.0
 		dm -= 1
 
-	cmd = '%s %s -i \"%s\" -c:v libx264 -c:a copy -to %d:%.1f %s -y' %('ffmpeg.exe -ss', be[0], inname, dm, ds, outname)
+	cmd = '%s %s -i \"%s\" -c:v libx264 -crf 14.5 -c:a copy -to %d:%.1f %s -y' %('ffmpeg.exe -ss', be[0], inname, dm, ds, preamble[0] + '-' + outname)
 	print(cmd)
 	os.system(cmd)
 # '.\ffmpeg.exe -ss 00:01:23.40 -i '.\Blue rain.mp4' -c copy -to 00:03:18.0 output.mp4'
