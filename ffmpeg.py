@@ -12,11 +12,18 @@ for o, a in opts:
 if filename == '':
 	print('input filename using -i \"filename.txt\"')
 	exit()
+
 preamble = re.findall(r"([a-zA-Z\-0-9]+)\.txt", filename)
 f = open(filename, encoding='utf-8')
 time_stamp = f.readlines()
 inname = time_stamp[0].rstrip()
 print(inname)
+
+audio = '-c:a copy'
+format_judge = re.findall(r"\.mkv", inname)
+if len(format_judge) == 1: # it's mkv
+	audio = '-c:a aac -b:a 320k'
+
 for line in time_stamp[1:]:
 	if line[0] == '#':
 		continue
@@ -47,7 +54,7 @@ for line in time_stamp[1:]:
 		ds += 60.0
 		dm -= 1
 
-	cmd = '%s %s -i \"%s\" -t %d:%.1f -f mp4 -pix_fmt yuv420p -c:v libx264 -crf 14 -c:a copy %s -hide_banner -y' %('ffmpeg.exe -ss', be[0], inname, dm, ds, preamble[0] + '-' + outname)
+	cmd = '%s %s -i \"%s\" -t %d:%.1f -f mp4 -pix_fmt yuv420p -c:v libx264 -crf 14 %s %s -hide_banner -y' %('ffmpeg.exe -ss', be[0], inname, dm, ds, audio, preamble[0] + '-' + outname)
 	# -pix_fmt yuv420p for thumbnails
 	print(cmd)
 	os.system(cmd)
