@@ -47,7 +47,7 @@ for line in time_stamp[1:]:
 		ds += 60.0
 		dm -= 1
 
-	cmd = '%s %s -i \"%s\" -c:v libx264 -crf 14.5 -c:a copy -to %d:%.1f %s -y' %('ffmpeg.exe -ss', be[0], inname, dm, ds, preamble[0] + '-' + outname)
+	cmd = '%s %s -i \"%s\" -c:v libx265 -crf 18 -c:a copy -to %d:%.1f %s -y' %('ffmpeg.exe -ss', be[0], inname, dm, ds, preamble[0] + '-' + outname)
 	print(cmd)
 	os.system(cmd)
 # '.\ffmpeg.exe -ss 00:01:23.40 -i '.\Blue rain.mp4' -c copy -to 00:03:18.0 output.mp4'
