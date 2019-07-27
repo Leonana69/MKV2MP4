@@ -1,3 +1,2 @@
 filename.mp4
-s_time 		e_time 		name
-23:22.65  	23:24.2 	战场原腿
+1:22.65  	1:24.2 	片段1
