@@ -1,7 +1,6 @@
 import os
 import sys, getopt
 import re
-import datetime
 
 opts, args = getopt.getopt(sys.argv[1:], 'i:', 'input=')
 filename = ''
